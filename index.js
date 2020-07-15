@@ -92,10 +92,10 @@ function finalScore(callback, inningNum) {
   scoreObj["Home"] = homeScore;
   scoreObj["Away"] = awayScore;
 
-  console.log(scoreObj);
+  return scoreObj;
 }
 
-finalScore(inning, 9);
+// console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -117,6 +117,49 @@ and returns the score at each pont in the game, like so:
 9th inning: awayTeam - homeTeam
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function getInningScore(callback) {
+  let inningScore = { home: 0, away: 0 };
+  inningScore.home = inningScore.home + callback();
+  inningScore.away = inningScore.away + callback();
+  return inningScore;
 }
+
+function scoreboard(callback, callback2, inningNum) {
+  let finalScore = { home: 0, away: 0 };
+
+  for (let i = 1; i <= inningNum; i++) {
+    let inningScore = { home: 0, away: 0 };
+    inningScore = callback2(callback);
+
+    finalScore.home = finalScore.home + inningScore.home;
+    finalScore.away = finalScore.away + inningScore.away;
+
+    switch (i) {
+      case 1:
+        console.log(
+          `${i}st inning: Away ${finalScore.away} - Home ${finalScore.home}`
+        );
+        break;
+      case 2:
+        console.log(
+          `${i}nd inning: Away ${finalScore.away} - Home ${finalScore.home}`
+        );
+        break;
+      case 3:
+        console.log(
+          `${i}rd inning: Away ${finalScore.away} - Home ${finalScore.home}`
+        );
+        break;
+      default:
+        console.log(
+          `${i}th inning: Away ${finalScore.away} - Home ${finalScore.home}`
+        );
+    }
+  }
+
+  console.log(
+    `The final score is Away ${finalScore.away} - Home ${finalScore.home}`
+  );
+}
+
+scoreboard(inning, getInningScore, 9);
